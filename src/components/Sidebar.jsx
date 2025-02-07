@@ -3,10 +3,12 @@ import "../index.css";
 import styled from "styled-components";
 import cpdclogo from "../assets/cpdclogo.jpg";
 import talisaylogo from "../assets/talisaylogo.png";
+import Navigation, { Icon, MenuWrapper, NavItem, NavLink } from "./Navigation";
+import { navigation } from "../arrays/nav";
 
 const SidebarWrapper = styled.div`
   display: grid;
-  grid-template-rows: 2fr 8fr 2fr;
+  grid-template-rows: 2fr 10fr;
   width: 303px;
   height: 100dvh;
   background-color: var(--sidebar);
@@ -36,10 +38,6 @@ const Sblogo = styled.div`
   }
 `;
 
-const MenuWrapper = styled.div`
-  padding: 10px;
-`;
-
 const Sbsettings = styled.div`
   padding: 10px;
 `;
@@ -57,9 +55,7 @@ function Sidebar() {
           <p>Developed by: ZafTech</p>
         </>
       </Sblogo>
-
-      <MenuWrapper>Menu</MenuWrapper>
-      <Sbsettings>Settings</Sbsettings>
+      <Navigation />
     </SidebarWrapper>
   );
 }

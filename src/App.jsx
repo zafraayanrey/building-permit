@@ -3,6 +3,7 @@ import "./index.css";
 import styled from "styled-components";
 import Sidebar from "./components/Sidebar";
 import RightContent from "./components/RightContent";
+import { RadioContext } from "./api/radio";
 
 const Wrapper = styled.div`
   margin: auto;
@@ -14,13 +15,26 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [corpAdd, setCorpAdd] = useState(false);
+  const [authRepAdd, setAuthRepAdd] = useState(false);
+  const [proInfoAdd, setProInfoAdd] = useState(false);
 
   return (
-    <Wrapper>
-      <Sidebar />
-      <RightContent />
-    </Wrapper>
+    <RadioContext.Provider
+      value={{
+        corpAdd,
+        authRepAdd,
+        proInfoAdd,
+        setCorpAdd,
+        setAuthRepAdd,
+        setProInfoAdd,
+      }}
+    >
+      <Wrapper>
+        <Sidebar />
+        <RightContent />
+      </Wrapper>
+    </RadioContext.Provider>
   );
 }
 
