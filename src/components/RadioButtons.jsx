@@ -25,7 +25,13 @@ const SameAddressDivider = styled.div`
 `;
 
 function RadioButtons({ name, label }) {
-  const { setCorpAdd, setAuthRepAdd, setProInfoAdd } = useContext(RadioContext);
+  const {
+    setCorpAdd,
+    setAuthRepAdd,
+    setProInfoAdd,
+    radioValue,
+    setRadioValue,
+  } = useContext(RadioContext);
 
   function handleClick(e) {
     if (e.target.name === "corpAdd") {

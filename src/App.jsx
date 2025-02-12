@@ -18,6 +18,16 @@ function App() {
   const [corpAdd, setCorpAdd] = useState(false);
   const [authRepAdd, setAuthRepAdd] = useState(false);
   const [proInfoAdd, setProInfoAdd] = useState(false);
+  const [radioValue, setRadioValue] = useState({
+    corpAdd: false,
+    authRepAdd: false,
+    proInfoAdd: false,
+  });
+  const [address, setAddress] = useState({
+    building: "",
+    barangay: "",
+    city: "",
+  });
 
   return (
     <RadioContext.Provider
@@ -25,9 +35,13 @@ function App() {
         corpAdd,
         authRepAdd,
         proInfoAdd,
+        radioValue,
+        address,
         setCorpAdd,
         setAuthRepAdd,
         setProInfoAdd,
+        setRadioValue,
+        setAddress,
       }}
     >
       <Wrapper>

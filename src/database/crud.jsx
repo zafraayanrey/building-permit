@@ -7,7 +7,6 @@ import { supabase } from "./supabase";
 import toast from "react-hot-toast";
 
 // Fetch data (Read)
-
 export function useItems() {
   return useQuery({
     queryKey: ["bpData"],
@@ -20,13 +19,20 @@ export function useItems() {
 }
 
 // Create Item (Post)
-export function useCreateItem() {
+export function useCreateItem(reset, setAddress) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (newItem) => {
       const { data, error } = await supabase.from("bpData").insert([newItem]);
+      // if (error) console.log(error);
       if (error) return toast.error("Something went wrong");
       toast.success("Successfully Added!");
+      reset();
+      setAddress({
+        building: null,
+        barangay: null,
+        city: null,
+      });
       return data;
     },
     onSuccess: () => {
