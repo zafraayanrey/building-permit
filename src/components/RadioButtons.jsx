@@ -1,6 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { RadioContext } from "../api/radio";
+import { useDispatch } from "react-redux";
+import {
+  authRepDisable,
+  corpAddDisable,
+  proInfoDisable,
+} from "../redux/applicationSlice";
 
 const SameAddressDivider = styled.div`
   grid-column: 2/5;
@@ -25,39 +31,33 @@ const SameAddressDivider = styled.div`
 `;
 
 function RadioButtons({ name, label }) {
-  const {
-    setCorpAdd,
-    setAuthRepAdd,
-    setProInfoAdd,
-    radioValue,
-    setRadioValue,
-  } = useContext(RadioContext);
+  const dispatch = useDispatch();
 
   function handleClick(e) {
     if (e.target.name === "corpAdd") {
-      setCorpAdd(true);
+      dispatch(corpAddDisable(true));
     }
 
     if (e.target.name === "authRepAdd") {
-      setAuthRepAdd(true);
+      dispatch(authRepDisable(true));
     }
 
     if (e.target.name === "projInfoAdd") {
-      setProInfoAdd(true);
+      dispatch(proInfoDisable(true));
     }
   }
 
   function handleEnable(e) {
     if (e.target.name === "corpAdd") {
-      setCorpAdd(false);
+      dispatch(corpAddDisable(false));
     }
 
     if (e.target.name === "authRepAdd") {
-      setAuthRepAdd(false);
+      dispatch(authRepDisable(false));
     }
 
     if (e.target.name === "projInfoAdd") {
-      setProInfoAdd(false);
+      dispatch(proInfoDisable(false));
     }
   }
 

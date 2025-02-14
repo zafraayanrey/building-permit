@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  testing: "zaf",
+  disable: {
+    corpAdd: false,
+    authRepAdd: false,
+    proInfoAdd: false,
+  },
   address: {
     building: "",
     barangay: "",
@@ -29,12 +33,22 @@ const applicationSlice = createSlice({
   name: "application",
   initialState,
   reducers: {
-    display: (state) => {
-      console.log(state.testing);
+    corpAddDisable: (state, action) => {
+      state.disable.corpAdd = action.payload;
+    },
+    authRepDisable: (state, action) => {
+      state.disable.authRepAdd = action.payload;
+    },
+    proInfoDisable: (state, action) => {
+      state.disable.proInfoAdd = action.payload;
+    },
+    updateAddress: (state, action) => {
+      state.address = action.payload;
     },
   },
 });
 
-export const { display } = applicationSlice.actions;
+export const { corpAddDisable, authRepDisable, proInfoDisable, updateAddress } =
+  applicationSlice.actions;
 
 export default applicationSlice.reducer;
