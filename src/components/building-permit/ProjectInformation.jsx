@@ -1,15 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import RadioButtons from "./RadioButtons";
-import { barangay } from "../arrays/barangays";
-import { RadioContext } from "../api/radio";
-import { useSelector } from "react-redux";
-import { readOnlyStyle } from "../utils/customStyling";
+import { barangay } from "../../arrays/barangays";
+import { RadioContext } from "../../api/radio";
+import { useDispatch, useSelector } from "react-redux";
+import { readOnlyStyle } from "../../utils/customStyling";
+import { setLocalAddress } from "../../redux/applicationSlice";
 
 function ProjectInformation({ register, yes }) {
   const projInfoDisable = useSelector(
     (el) => el.application.disable.proInfoAdd
   );
   const address = useSelector((el) => el.application.address);
+  const localAddress = useSelector((el) => el.application.localAddress);
+  const defaultProject = useSelector((el) => el.application.defaultHlurb);
+  const dispatch = useDispatch();
+
+  function handleChange(e) {
+    // const locAdd = { ...localAddress, [e.target.name]: e.target.value };
+    const defProject = { ...defaultProject, [e.target.name]: e.target.value };
+    dispatch(setLocalAddress(defProject));
+  }
 
   return (
     <>
@@ -38,12 +48,14 @@ function ProjectInformation({ register, yes }) {
         placeholder="St./Bldg/Purok"
         {...register("projBuilding")}
         style={projInfoDisable ? readOnlyStyle : null}
-        value={projInfoDisable ? address.building : ""}
+        onChange={handleChange}
+        value={projInfoDisable ? address.building : localAddress.projBuilding}
       ></input>
       <select
         {...register("projBarangay")}
         style={projInfoDisable ? readOnlyStyle : null}
-        value={projInfoDisable ? address.barangay : ""}
+        onChange={handleChange}
+        value={projInfoDisable ? address.barangay : localAddress.projBarangay}
       >
         {barangay.map((el, i) => (
           <option key={i}>{el}</option>
@@ -54,7 +66,8 @@ function ProjectInformation({ register, yes }) {
         placeholder="City"
         {...register("projCity")}
         style={projInfoDisable ? readOnlyStyle : null}
-        value={projInfoDisable ? address.city : ""}
+        onChange={handleChange}
+        value={projInfoDisable ? address.city : localAddress.projCity}
       ></input>
       <span></span>
     </>

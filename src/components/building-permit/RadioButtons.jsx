@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { RadioContext } from "../api/radio";
+import { RadioContext } from "../../api/radio";
 import { useDispatch } from "react-redux";
 import {
   authRepDisable,
   corpAddDisable,
   proInfoDisable,
-} from "../redux/applicationSlice";
+} from "../../redux/applicationSlice";
 
 const SameAddressDivider = styled.div`
   grid-column: 2/5;
@@ -15,6 +15,7 @@ const SameAddressDivider = styled.div`
   text-align: left;
   place-items: center;
   width: 40%;
+  /* width: 60%; */
   gap: 5px;
   font-size: 9px;
   padding: 3px;
@@ -28,6 +29,11 @@ const SameAddressDivider = styled.div`
     width: 15px !important;
     height: 15px !important;
   }
+`;
+
+const NotApp = styled.span`
+  font-size: 10px;
+  color: red;
 `;
 
 function RadioButtons({ name, label }) {
@@ -62,19 +68,30 @@ function RadioButtons({ name, label }) {
   }
 
   return (
-    <SameAddressDivider>
-      <span>{label}</span>
-      <input type="radio" name={name} value="yes" onClick={handleClick} />
-      <span>Yes</span>
-      <input
+    <>
+      <SameAddressDivider>
+        <span>{label}</span>
+        <input type="radio" name={name} value="yes" onClick={handleClick} />
+        <span>Yes</span>
+        <input
+          type="radio"
+          name={name}
+          value="no"
+          defaultChecked
+          onClick={handleEnable}
+        />
+        <span>No</span>
+        {/* <input
         type="radio"
         name={name}
-        value="no"
+        value="yes"
         defaultChecked
         onClick={handleEnable}
       />
-      <span>No</span>
-    </SameAddressDivider>
+      <span>Not Applicable</span> */}
+      </SameAddressDivider>
+      <NotApp>*write n/a if not applicable</NotApp>
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { barangay } from "../arrays/barangays";
-import { RadioContext } from "../api/radio";
+import { barangay } from "../../arrays/barangays";
+import { RadioContext } from "../../api/radio";
 
 const addressStyle = {
   backgroundColor: "#ffffff",

@@ -1,5 +1,5 @@
 export const barangay = [
-  "Please select...",
+  "Not Applicable",
   "Biasong",
   "Bulacao",
   "Camp IV",

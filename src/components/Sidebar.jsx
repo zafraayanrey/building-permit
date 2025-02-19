@@ -3,7 +3,12 @@ import "../index.css";
 import styled from "styled-components";
 import cpdclogo from "../assets/cpdclogo.jpg";
 import talisaylogo from "../assets/talisaylogo.png";
-import Navigation, { Icon, MenuWrapper, NavItem, NavLink } from "./Navigation";
+import Navigation, {
+  Icon,
+  MenuWrapper,
+  NavItem,
+  NavLink,
+} from "./building-permit/Navigation";
 import { navigation } from "../arrays/nav";
 
 const SidebarWrapper = styled.div`

@@ -1,27 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import RadioButtons from "./RadioButtons";
-import { RadioContext } from "../api/radio";
-import { barangay } from "../arrays/barangays";
-import { useSelector } from "react-redux";
-import { readOnlyStyle } from "../utils/customStyling";
+import { RadioContext } from "../../api/radio";
+import { barangay } from "../../arrays/barangays";
+import { useDispatch, useSelector } from "react-redux";
+import { readOnlyStyle } from "../../utils/customStyling";
+import { setLocalAddress } from "../../redux/applicationSlice";
+import ErrorComponent from "../../reusable-components/ErrorComponent";
 
-function CorporationAddress({ register, addressVal, setAddressVal, yes }) {
+function CorporationAddress({
+  register,
+  errors,
+  addressVal,
+  setAddressVal,
+  yes,
+}) {
   const corpAddDisable = useSelector((el) => el.application.disable.corpAdd);
   const address = useSelector((el) => el.application.address);
-  const [finalAddress, setFinalAddress] = useState({
-    building: "",
-    city: "",
-    barangay: "",
-  });
-
-  const localAddress = {
-    corpBuilding: "",
-    corpBarangay: "",
-    corpCity: "",
-  };
+  const localAddress = useSelector((el) => el.application.localAddress);
+  const dispatch = useDispatch();
 
   function handleChange(e) {
-    setFinalAddress({ ...localAddress, [e.target.name]: e.target.value });
+    const locAdd = { ...localAddress, [e.target.name]: e.target.value };
+    dispatch(setLocalAddress(locAdd));
   }
 
   return (
@@ -36,15 +36,14 @@ function CorporationAddress({ register, addressVal, setAddressVal, yes }) {
         placeholder="St./Bldg/Purok"
         style={corpAddDisable ? readOnlyStyle : null}
         onChange={handleChange}
-        value={
-          corpAddDisable ? address.building || "" : finalAddress.building || ""
-        }
+        value={corpAddDisable ? address.building : localAddress.corpBuilding}
       />
+
       <select
         style={corpAddDisable ? readOnlyStyle : null}
         {...register("corpBarangay")}
         onChange={handleChange}
-        value={corpAddDisable ? address.barangay : finalAddress.barangay}
+        value={corpAddDisable ? address.barangay : localAddress.corpBarangay}
       >
         {barangay.map((el, i) => (
           <option key={i}>{el}</option>
@@ -56,9 +55,13 @@ function CorporationAddress({ register, addressVal, setAddressVal, yes }) {
         placeholder="City"
         {...register("corpCity")}
         onChange={handleChange}
-        value={corpAddDisable ? address.city : finalAddress.city}
+        value={corpAddDisable ? address.city : localAddress.corpCity}
       ></input>
       <span></span>
+      {/* {errors.corpBuilding && <ErrorComponent />} */}
+      {/* <span></span> */}
+      {/* {errors.corpCity && <ErrorComponent />} */}
+      {/* <span></span> */}
     </>
   );
 }

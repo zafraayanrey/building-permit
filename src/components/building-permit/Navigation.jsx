@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { navigation } from "../arrays/nav";
+import { navigation } from "../../arrays/nav";
 
 export const MenuWrapper = styled.div`
   grid-template-rows: 7fr 3fr;
@@ -42,7 +42,7 @@ export const NavLink = styled.div`
 `;
 
 const SettingsContainer = styled.div`
-  height: 60%;
+  height: 50%;
   place-content: end;
 `;
 
@@ -55,7 +55,7 @@ function Navigation() {
     <MenuWrapper>
       {navigation.map(
         (el, i) =>
-          i < 4 && (
+          i < 5 && (
             <NavItem key={i}>
               <Icon>{el.icons}</Icon>
               <NavLink>{el.title}</NavLink>
@@ -65,7 +65,7 @@ function Navigation() {
       <SettingsContainer>
         {navigation.map(
           (el, i) =>
-            i > 3 && (
+            i > 4 && (
               <SettingItems key={i}>
                 <Icon>{el.icons}</Icon>
                 <NavLink>{el.title}</NavLink>

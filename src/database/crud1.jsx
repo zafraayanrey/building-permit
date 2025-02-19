@@ -5,6 +5,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // import toast from "react-hot-toast";
 import { supabase } from "./supabase";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+
+// const dispatch = useDispatch();
 
 // Fetch data (Read)
 export function useItems() {
@@ -19,7 +22,7 @@ export function useItems() {
 }
 
 // Create Item (Post)
-export function useCreateItem(reset, setAddress) {
+export function useCreateItem(reset) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (newItem) => {
@@ -27,12 +30,8 @@ export function useCreateItem(reset, setAddress) {
       // if (error) console.log(error);
       if (error) return toast.error("Something went wrong");
       toast.success("Successfully Added!");
+
       reset();
-      setAddress({
-        building: null,
-        barangay: null,
-        city: null,
-      });
       return data;
     },
     onSuccess: () => {

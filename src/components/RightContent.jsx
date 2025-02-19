@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
+import Header from "./building-permit/Header";
+import Footer from "./building-permit/Footer";
 import styled from "styled-components";
+import BuildingPermit from "./building-permit/BuildingPermit";
 
 const RightContentWrapper = styled.div`
   display: grid;
@@ -14,7 +14,7 @@ function RightContent() {
   return (
     <RightContentWrapper>
       <Header />
-      <Main />
+      <BuildingPermit />
       <Footer />
     </RightContentWrapper>
   );

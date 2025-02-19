@@ -1,7 +1,7 @@
 import React from "react";
-import { barangay } from "../arrays/barangays";
+import { barangay } from "../../arrays/barangays";
 import { useDispatch, useSelector } from "react-redux";
-import { updateAddress } from "../redux/applicationSlice";
+import { updateAddress } from "../../redux/applicationSlice";
 
 function ApplicantAddress({ register, yes }) {
   const addressVar = useSelector((el) => el.application.address);

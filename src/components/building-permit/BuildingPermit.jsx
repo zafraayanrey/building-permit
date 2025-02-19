@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import SubmitButton from "../reusable-components/SubmitButton";
-import { RadioContext } from "../api/radio";
+import SubmitButton from "../../reusable-components/SubmitButton";
+import { RadioContext } from "../../api/radio";
 import { useForm } from "react-hook-form";
-import { useCreateItem } from "../database/crud";
+// import { useCreateItem } from "../database/crud1";
 import { Toaster } from "react-hot-toast";
 import Hlurb from "./Hlurb";
 import ZoningAdministrator from "./ZoningAdministrator";
@@ -11,8 +11,10 @@ import ProjectInformation from "./ProjectInformation";
 import AuthRep from "./AuthRep";
 import CorporationAddress from "./CorporationAddress";
 import ApplicantAddress from "./ApplicantAddress";
-import { useDispatch, useSelector } from "react-redux";
 import ApplicantName from "./ApplicantName";
+import CrudOp from "../../database/CrudOp";
+import { useDispatch, useSelector } from "react-redux";
+import { setOverallData } from "../../redux/applicationSlice";
 
 const MainContainer = styled.div`
   display: grid;
@@ -127,7 +129,7 @@ const Issuance = styled.div`
   }
 `;
 
-function Main() {
+function BuildingPermit() {
   //variables
   const [addressValues, setAddressValues] = useState({
     corpBuilding: "",
@@ -140,6 +142,8 @@ function Main() {
     projBarangay: "",
     projCity: "",
   });
+
+  const dispatch = useDispatch();
 
   //this is from context API
   const { corpAdd, authRepAdd, proInfoAdd, address, setAddress } =
@@ -154,6 +158,10 @@ function Main() {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    reset();
+  }, []);
+
   //styles
   const focus = {
     border: "solid 2px #e2dd6c",
@@ -167,16 +175,15 @@ function Main() {
   };
 
   // CRUD FUNCTIONS
+  const { useCreateItem } = CrudOp();
   const createMutation = useCreateItem(reset, setAddress);
   // const updateMutation = useUpdateItem();
   // const deleteMutation = useDeleteItem();
 
   function handleCreate(data) {
     createMutation.mutate(data);
-    console.log(data);
+    // formRef.current.reset();
   }
-
-  const variable = useSelector((el) => el.application.address);
 
   return (
     <form onSubmit={handleSubmit(handleCreate)}>
@@ -190,13 +197,13 @@ function Main() {
         <ApplicantAddress register={register} />
 
         {/* ----------------Corporation Address------------------------ */}
-        <CorporationAddress register={register} />
+        <CorporationAddress errors={errors} register={register} />
 
         {/* ----------------Authorized Representative------------------------ */}
-        <AuthRep register={register} />
+        <AuthRep errors={errors} register={register} />
 
         {/* ----------------Project Information------------------------ */}
-        <ProjectInformation register={register} />
+        <ProjectInformation errors={errors} register={register} />
 
         <Issuance>
           <ZoningAdministrator register={register} focus={focus} />
@@ -212,4 +219,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default BuildingPermit;
