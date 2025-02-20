@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: "#000000",
     borderBottomWidth: "1px",
     zIndex: 1,
+
     // backgroundColor: "orange",
   },
 
@@ -43,12 +44,16 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginTop: 10,
+    gap: 0,
+    // margin: 0,
+    padding: 0,
   },
 
   subHeadingContent: {
     flex: 1,
+    padding: 0,
     margin: "auto",
     textAlign: "center",
-    border: "2px solid black",
+    border: "1px solid black",
   },
 });
